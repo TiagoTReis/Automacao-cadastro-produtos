@@ -26,7 +26,6 @@ pyautogui.write("123456")
 pyautogui.press("tab")
 pyautogui.press("enter")
 time.sleep(5)
-
 tabela = pd.read_csv("produtos.csv")
 #print(tabela)
 
@@ -52,19 +51,20 @@ for linha in tabela.index:
     time.sleep(0.3)
 
     pyautogui.press("tab")
-    preco = str(tabela.loc[linha,"preco_unitario"])
+    preco = "{:.2f}".format(tabela.loc[linha, "preco_unitario"]).replace(".", ",")
     pyautogui.write(preco)
     time.sleep(0.3)
 
     pyautogui.press("tab")
-    custo = str(tabela.loc[linha,"custo"])
+    custo = "{:.2f}".format(tabela.loc[linha, "custo"]).replace(".", ",")
     pyautogui.write(custo)
     time.sleep(0.3)
 
     pyautogui.press("tab")
     obs = str(tabela.loc[linha,"obs"])
-    pyautogui.write(obs)
-    time.sleep(0.3)
+    if obs != "nan":
+        pyautogui.write(obs)
+        time.sleep(0.3)
 
     pyautogui.press("tab")
     pyautogui.press("enter")
